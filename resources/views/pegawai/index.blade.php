@@ -109,7 +109,11 @@
             columns:[
                 {data:'nama'},
                 {data:'alamat'},
-                {data:'email'},
+                {data:'email', 
+                    mRender:function(data, type, full){
+                        return`<span class="badge badge-warning">${data}</span>`;
+                    }
+                },
                 {data:'no_telpon'},
                 {data:'jenis_kelamin'},
             ]
