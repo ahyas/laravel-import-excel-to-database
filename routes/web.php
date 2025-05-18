@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('import_excel/pegawai', 'PegawaiController@index');
+    Route::get('import_excel/download_template', 'PegawaiController@download_template')->name('import_excel.download_template');
 
     Route::get('api/v1/pegawai', 'PegawaiController@getDataPegawai')->name('api.v1.pegawai');
 

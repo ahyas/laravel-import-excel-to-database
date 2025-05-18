@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\PegawaiImport;
 use Illuminate\Http\Request;
 use App\Pegawai;
+use Illuminate\Support\Facades\Response;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
@@ -30,11 +31,11 @@ class PegawaiController extends Controller
 		$nama_file = rand().$file->getClientOriginalName();
  
 		// upload ke folder file_siswa di dalam folder public
-		$file->move(public_path('file_pegawai'),$nama_file);
+		$file->move(public_path('pegawai_file'),$nama_file);
  
 		// import data
         $pegawai = new PegawaiImport;
-		Excel::import($pegawai, public_path('file_pegawai/'.$nama_file));
+		Excel::import($pegawai, public_path('pegawai_file/'.$nama_file));
 
         return response()->json($pegawai);
     }
@@ -49,6 +50,10 @@ class PegawaiController extends Controller
         }
 
         return response()->json(['pegawai'=>$pegawai, 'count'=>$sum]);
+    }
+
+    public function download_template(){
+        return Response::download(public_path('template_file/daftar_pegawai.xlsx'), 'contoh_daftar_pegawai.xlsx');
     }
 
 }

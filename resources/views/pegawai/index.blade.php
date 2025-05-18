@@ -9,8 +9,16 @@
                     <div class="card-header">Import file Excel kedalam database</div>
                         <div class="card-body"> 
                             <div id="alert_msg"></div>
-                            <button class="btn btn-primary btn-sm tambah_petugas mb-3" id="add_file">Import</button>
-                            <button class="btn btn-danger btn-sm tambah_petugas mb-3" id="clear_table">Clear</button>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <button class="btn btn-primary btn-sm tambah_petugas mb-3" id="add_file">Import</button>
+                                    <button class="btn btn-danger btn-sm tambah_petugas mb-3" id="clear_table">Clear</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <a href="{{route('import_excel.download_template')}}" class="float-right" >Download contoh template excel</a>
+                                </div>
+                            </div>
+                            
                             <div>
 
                                 <table class="table table-sm table-striped tb_pegawai" id="tb_pegawai">
@@ -56,7 +64,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="save">Import</button>
+                        <button type="submit" class="btn btn-primary" id="import">Import</button>
                     </div>
                 </form>
             </div>
@@ -74,7 +82,7 @@
             $('#modal_import').modal('show');
         });
 
-        $('#save').click(function(e){
+        $('#import').click(function(e){
             e.preventDefault();
             var formData = new FormData(document.getElementById('form_import'));
             $.ajax({
@@ -86,6 +94,8 @@
                 dataType:'JSON',
                 success:function(data){
                     console.log(data)
+                    $('#file').val('');
+                    document.getElementById('alert_msg').innerHTML = '';
                     $('#modal_import').modal('hide');
                     $('#tb_pegawai').DataTable().ajax.reload();
                 },
